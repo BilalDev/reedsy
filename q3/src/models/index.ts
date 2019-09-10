@@ -27,7 +27,14 @@ enum ExportType {
     pdf = 'pdf'
 }
 
-class ExportJob {
+enum ImportType {
+    word = 'word',
+    pdf = 'pdf',
+    wattpad = 'wattpad',
+    evernote = 'evernote'
+}
+
+class ExportJob implements IExportJob {
     public state: State = State.pending;
     public created_at: number = Date.now();
     public updated_at: number = 0;
@@ -56,4 +63,30 @@ class ExportJob {
     }
 }
 
-export { ExportJob, State };
+class ImportJob implements IJob {
+    public state: State = State.pending;
+    public created_at: number = Date.now();
+    public updated_at: number = 0;
+    public bookId: string;
+    public type: string;
+    public processing_time: number = 60;
+
+    constructor(bookId: string, type: string) {
+        this.bookId = bookId;
+        this.type = type;
+    }
+
+    public static update(importJob: IJob) : ImportJob {
+        let now = Date.now();
+
+        if (importJob.state != State.finished && (now - importJob.created_at >= importJob.processing_time * 1000)) {
+            let now = Date.now();
+            importJob.updated_at = now;
+            importJob.state = State.finished;
+        }
+
+        return importJob;
+    }
+}
+
+export { ExportJob, ImportJob, State };

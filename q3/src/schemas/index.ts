@@ -1,4 +1,4 @@
-import * as Joi from "joi";
+import Joi from "joi";
 
 const BookReq = Joi.object().keys({
     bookId: Joi.string().required(),

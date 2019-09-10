@@ -3,10 +3,11 @@ import * as Joi from "joi";
 import * as fs from "fs";
 import * as path from "path";
 
-import { ExportReq } from "../schemas";
-import { ExportJob, State } from "../models";
+import { ExportReq, ImportReq } from "../schemas";
+import { ExportJob, ImportJob, State } from "../models";
 
 const mockExport = path.join(__dirname, '../../../__mocks__/export.json');
+const mockImport = path.join(__dirname, '../../../__mocks__/import.json');
 
 /**
  * POST /api/export
@@ -101,7 +102,46 @@ export const listExports = (req: Request, res: Response, next: NextFunction) => 
  * @param res
  * @param next
  */
-export const postImport = (req: Request, res: Response, next: NextFunction) => {};
+export const postImport = (req: Request, res: Response, next: NextFunction) => {
+    Joi.validate(req.body, ImportReq, (err) => {
+        if (err) {
+            res.status(422).send({ message: err });
+
+            return next();
+        }
+
+        const { bookId, type } = req.body;
+
+        const data = fs.readFileSync(mockImport, 'utf-8');
+        let imports = JSON.parse(data) as Array<any>;
+        let importJob = null;
+        let foundImp = imports.find(imp => {return (imp.bookId === bookId)});
+
+        if (typeof foundImp !== 'undefined') {
+            importJob =  foundImp as ImportJob;
+            importJob = ImportJob.update(importJob);
+            imports = imports.filter(imp => {
+                return (imp.bookId !== bookId);
+            });
+        }
+        else {
+            importJob = new ImportJob(bookId, type);
+        }
+
+        imports.push(importJob);
+        let results = JSON.stringify(imports, null, 4);
+
+        fs.writeFile(mockImport, results, (err) => {
+            if (err) {
+                res.status(500).send({ message: err });
+
+                return next();
+            }
+
+            res.status(200).send({message: "Import job."});
+        });
+    });
+};
 
 /**
  * GET /api/import
@@ -111,4 +151,36 @@ export const postImport = (req: Request, res: Response, next: NextFunction) => {
  * @param res
  * @param next
  */
-export const listImports = (req: Request, res: Response, next: NextFunction) => {};
+export const listImports = (req: Request, res: Response, next: NextFunction) => {
+    fs.readFile(mockImport, 'utf-8', (err, data) => {
+        if (err) {
+            res.status(500).send({ message: err });
+
+            return next();
+        }
+        try {
+            let imports = JSON.parse(data) as Array<any>;
+            let returns = {pendings: {}, finished: {}};
+
+            let pendings = imports.filter(exp => {
+                return (exp.state === State.pending);
+            });
+            let finished = imports.filter(exp => {
+                return (exp.state === State.finished);
+            });
+
+            returns.pendings = pendings;
+            returns.finished = finished;
+
+            res.status(200).send(returns);
+
+            return next();
+
+        }
+        catch (exception) {
+            res.status(500).send({ message: exception.message });
+
+            return next();
+        }
+    });
+};
