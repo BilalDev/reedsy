@@ -14,6 +14,7 @@
             init();
 
             function init() {
+                vm.showDesc = false;
             }
         }
 

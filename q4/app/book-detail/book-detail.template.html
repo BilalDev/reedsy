@@ -1,1 +1,20 @@
-{{ bookDetailCtrl.book.author }}
+<div class="col-md-6">
+    <div class="row">
+        <div class="col-md-3 cover"><img class="rounded" ng-src="{{ bookDetailCtrl.book.book_image }}"/></div>
+        <div class="col-md-9">
+            <p class="title" ng-click="bookDetailCtrl.showDesc = !bookDetailCtrl.showDesc">{{ bookDetailCtrl.book.title }}</p>
+            <p class="author">{{ bookDetailCtrl.book.author }}</p>
+        </div>
+    </div>
+</div>
+<div class="col-md-2 text-center">{{ bookDetailCtrl.book.contributor }}</div>
+<div class="col-md-2 text-center">{{ bookDetailCtrl.book.contributor }}</div>
+<div class="col-md-2 retailers text-center">
+    <p class="retailer" ng-repeat="retailer in bookDetailCtrl.book.buy_links">
+        <a ng-href="{{ retailer.url }}">{{ retailer.name }}</a>
+    </p>
+</div>
+
+<div class="col-md-12 description" ng-show="bookDetailCtrl.showDesc">
+    <p>{{ bookDetailCtrl.book.description }}</p>
+</div>
