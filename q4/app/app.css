@@ -1,1 +1,69 @@
 body {background-color: #f5f1ed;}
+
+.container {
+    background-color: #fff;
+    padding: 30px 30px 90px 30px;
+    margin: 30px auto;
+    min-height: 600px;
+    position: relative;
+}
+input {
+    padding: 11px;
+    color: #757575;
+    border: none;
+}
+input:focus {
+    outline: none;
+}
+.books .header {
+    color: #a09fa0;
+    margin-bottom: 20px;
+}
+.books .content {
+    padding: 15px;
+}
+.books .title {
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+.books .title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.books .author {
+    color: #9b9b9b;
+}
+.books .cover img {
+    width: 80px;
+}
+.books .retailers p.retailer {
+    margin-bottom: 0;
+}
+.books .retailers .retailer a {
+    color: #bdd586;
+}
+.books .odd {
+    background-color: #fbf9f7;
+}
+.books .description {
+    margin-top: 10px;
+}
+.pagination {
+    position: absolute;
+    bottom: 30px;
+    width: 210px;
+    justify-content: center;
+    margin: 0px;
+
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+.pagination .page-link {
+    color: #757575;
+}
+.pagination .disabled .page-link {
+    color: #75757559;
+}

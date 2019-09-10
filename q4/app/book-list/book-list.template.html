@@ -6,7 +6,7 @@
             <h3>Most popular Books of All time</h3>
         </div>
         <div class="col-md-4">
-            <input ng-model="bookListCtrl.query" type="text" placeholder="Search..." />
+            <input autofocus ng-model="bookListCtrl.query" type="text" placeholder="Search..." />
         </div>
     </div>
 
@@ -21,4 +21,18 @@
             <book-detail class="row content" ng-class-odd="'odd'" ng-repeat="book in bookListCtrl.items | filter:bookListCtrl.query" book="book"></book-detail>
         </div>
     </div>
+
+    <nav aria-label="Book navigation">
+        <ul class="pagination" ng-if="bookListCtrl.pager.totalPages">
+            <li class="page-item" ng-class="{disabled:bookListCtrl.pager.currentPage === 1}">
+                <span class="page-link" ng-click="bookListCtrl.setPage(bookListCtrl.pager.currentPage - 1)">&laquo;</span>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">{{ 'Page ' + bookListCtrl.pager.currentPage + ' of ' + bookListCtrl.pager.totalPages }}</span>
+            </li>
+            <li class="page-item" ng-class="{disabled:bookListCtrl.pager.currentPage === bookListCtrl.pager.totalPages}">
+                <span class="page-link" ng-click="bookListCtrl.setPage(bookListCtrl.pager.currentPage + 1)">&raquo;</span>
+            </li>
+        </ul>
+    </nav>
 </div>

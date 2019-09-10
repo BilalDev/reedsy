@@ -8,10 +8,17 @@
 
     function bookList() {
         var url = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=hH2btkdterQdVIn4GIxKW6NyGUAp9qGO`;
-        function BookListCtrl($http) {
+        function BookListCtrl($http, Paginator) {
             var vm = this;
+            vm.pager = {};
+            vm.setPage = setPage;
 
             init();
+
+            function setPage(page) {
+                vm.pager = Paginator.GetPager(vm.books.length, 5, page);
+                vm.items = vm.books.slice(vm.pager.startIndex, vm.pager.endIndex + 1);
+            }
 
             function init() {
                 $http.get(url)
@@ -21,7 +28,8 @@
                     }
                 })
                 .then(response => {
-                    vm.items = response.books;
+                    vm.books = response.books;
+                    vm.setPage(1);
                 })
                 .catch(error => {
                     vm.error = error.data.fault.faultstring;
@@ -29,7 +37,7 @@
             }
         }
 
-        BookListCtrl.$inject = ['$http'];
+        BookListCtrl.$inject = ['$http', 'Paginator'];
 
         return {
             bindings: {},
