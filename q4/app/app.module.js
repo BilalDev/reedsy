@@ -4,7 +4,8 @@
     angular
         .module('reedsyApp', [
             'core',
-            'bookList'
+            'bookList',
+            'bookDetail'
         ]);
 
 }());
