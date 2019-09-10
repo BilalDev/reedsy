@@ -23,7 +23,7 @@ export const postExport = (req: Request, res: Response, next: NextFunction) => {
         }
 
         const { bookId, type, url } = req.body;
-        const data = fs.readFileSync(path.join(__dirname, '../../__mocks__/export.json'), 'utf-8');
+        const data = fs.readFileSync(path.join(__dirname, '../../../__mocks__/export.json'), 'utf-8');
         let exports = JSON.parse(data) as Array<any>;
         let exportJob = null;
         let foundExp = exports.find(exp => {return (exp.bookId === bookId)});
@@ -41,7 +41,7 @@ export const postExport = (req: Request, res: Response, next: NextFunction) => {
         exports.push(exportJob);
         let results = JSON.stringify(exports, null, 4);
 
-        fs.writeFile(path.join(__dirname, '../../__mocks__/export.json'), results, (err) => {
+        fs.writeFile(path.join(__dirname, '../../../__mocks__/export.json'), results, (err) => {
             if (err) {
                 res.status(500).send({ message: err });
 
@@ -62,7 +62,7 @@ export const postExport = (req: Request, res: Response, next: NextFunction) => {
  * @param next
  */
 export const listExports = (req: Request, res: Response, next: NextFunction) => {
-    fs.readFile(path.join(__dirname, '../../../__mocks__/export.json'), 'utf-8', (err, data) => {
+    fs.readFile(path.join(__dirname, '../../../../__mocks__/export.json'), 'utf-8', (err, data) => {
         if (err) {
             res.status(500).send({ message: err });
 
