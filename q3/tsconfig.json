@@ -7,5 +7,9 @@
     "outDir": "./dist",
     "sourceMap": true,
     "declaration": true
-  }
+  },
+  "exclude": [
+    "**/__mocks__/*",
+    "./dist"
+  ]
 }

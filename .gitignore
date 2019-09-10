@@ -63,3 +63,4 @@ typings/
 
 # q3
 dist
+__mocks__
