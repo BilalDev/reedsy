@@ -7,9 +7,11 @@
     "prestart": "rm -rf dist && tsc",
     "start": "concurrently --kill-others npm:start-*",
     "start-node": "node ./dist/src/server.js",
+    "start-cron": "node ./dist/src/cron.js",
     "watch": "concurrently --kill-others npm:dev-*",
     "dev-typescript": "tsc -w",
-    "dev-node": "nodemon ./dist/src/server.js"
+    "dev-node": "nodemon ./dist/src/server.js",
+    "dev-cron": "nodemon ./dist/src/cron.js"
   },
   "author": "bhamed",
   "license": "ISC",

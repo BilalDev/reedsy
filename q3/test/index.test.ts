@@ -8,7 +8,7 @@ describe('#postExport()', () => {
         const response = await axios({
             data: {
                 'bookId': 'Moby Dick',
-                'type': 'pdf',
+                'type': 'epub',
                 'url': 'https://mobydick.fr'
             },
             headers: {'Content-Type': 'application/json'},
