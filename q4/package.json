@@ -1,0 +1,30 @@
+{
+  "name": "q4",
+  "version": "1.0.0",
+  "description": "AngularJS Basic SPA",
+  "scripts": {
+    "postinstall": "npm run copy-libs",
+    "copy-libs": "cpx \"node_modules/{angular,angular-*,bootstrap/dist,jquery/dist}/**/*\" app/lib -C",
+    "prestart": "npm install",
+    "start": "http-server ./app -a localhost -p 8000 -c-1",
+    "test": "karma start karma.conf.js"
+  },
+  "author": "bhamed",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.7.8",
+    "angular-resource": "^1.7.8",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.7.8",
+    "cpx": "^1.5.0",
+    "http-server": "^0.11.1",
+    "jasmine-core": "^3.4.0",
+    "karma": "^4.3.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^2.0.1",
+    "protractor": "^5.4.2"
+  }
+}
