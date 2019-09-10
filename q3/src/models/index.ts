@@ -1,3 +1,16 @@
+interface IJob {
+    state: State;
+    created_at: number;
+    updated_at: number;
+    bookId: string;
+    type: string;
+    processing_time: number;
+}
+
+interface IExportJob extends IJob {
+    url: string;
+}
+
 enum ProcessingTime {
     epub = 10,
     pdf = 25,
@@ -30,7 +43,7 @@ class ExportJob {
         this.processing_time = (this.type === ExportType.pdf) ? ProcessingTime.pdf : ProcessingTime.epub;
     }
 
-    public static update(exportJob: any) : ExportJob {
+    public static update(exportJob: IExportJob) : ExportJob {
         let now = Date.now();
 
         if (exportJob.state != State.finished && (now - exportJob.created_at >= exportJob.processing_time * 1000)) {
@@ -42,3 +55,5 @@ class ExportJob {
         return exportJob;
     }
 }
+
+export { ExportJob, State };

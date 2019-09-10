@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 import { ExportReq } from "../schemas";
-import { ExportJob } from "../models";
+import { ExportJob, State } from "../models";
 
 /**
  * POST /api/export
@@ -72,10 +72,10 @@ export const listExports = (req: Request, res: Response, next: NextFunction) => 
             let exports = JSON.parse(data) as Array<any>;
 
             let pendings = exports.filter(exp => {
-                return (exp.state === 'pending');
+                return (exp.state === State.pending);
             });
             let finished = exports.filter(exp => {
-                return (exp.state === 'finished');
+                return (exp.state === State.finished);
             });
 
             res.status(200).send({ pendings: pendings, finished: finished });
