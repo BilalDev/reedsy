@@ -49,3 +49,8 @@ E--save-->F[revision 1.<br/>+lorem ipsum<br/><br/>revision 2.<br/>+ dolor site a
 ## 3. Node.js REST API
 
 `cd q3` && `npm install` && `npm start`.
+
+## 4. AngularJS
+
+`cd q4` && `npm install` && `npm start`.
+
