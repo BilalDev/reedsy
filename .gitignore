@@ -63,7 +63,7 @@ typings/
 
 # q3
 dist
-__mocks__
+# __mocks__
 
 # q4
 lib
