@@ -67,3 +67,6 @@ input:focus {
 .pagination .disabled .page-link {
     color: #75757559;
 }
+.pagination .page-link:hover {
+    cursor: pointer;
+}
